@@ -1,0 +1,44 @@
+@Master['Master.sshtml']
+
+@Section['Title']
+Labs
+@EndSection
+
+@Section['Head']
+<link rel="stylesheet" type="text/css" href="~/Content/css/index.css"/>
+@EndSection
+
+@Section['Content']
+<div class="content">
+    <div class="centered box">
+        <div class="box-content">
+            <h3>Select labs:</h3>
+            <ul>
+                <li>
+                    <a href="/labs/first">Linear system solver</a>
+                </li>
+                <li>
+                    <span class="disable-links">
+                        <a href="/labs/second">Integral claculator</a>
+                    </span>
+                </li>
+                <li>
+                    <span class="disable-links">
+                        <a href="/labs/third">Approximation</a>
+                    </span>
+                </li>
+                <li>
+                    <span class="disable-links">
+                        <a href="/labs/fourth">Differnsial equation solver</a>
+                    </span>
+                </li>
+                <li>
+                    <span class="disable-links">
+                        <a href="/labs/fifth">Cholesky decomposition (?)</a>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+@EndSection

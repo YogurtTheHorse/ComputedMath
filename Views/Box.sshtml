@@ -1,0 +1,7 @@
+<div class="box">
+    <div class="box-content">
+        <h1>@Model.Title</h1>
+        
+        @Model.Content
+    </div>
+</div>

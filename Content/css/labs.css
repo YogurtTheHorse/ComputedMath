@@ -1,0 +1,19 @@
+.content {
+    width: 60%;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.content > .box  {
+    /*margin: 20px !important; */
+}
+
+div.lab-input {
+    width: 30%;
+    float: left;
+}
+
+div.lab-results {
+    width: 70%;
+    float: right;
+}

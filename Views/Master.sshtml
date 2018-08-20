@@ -1,0 +1,11 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>@Section['Title'];</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/css/main.css"/>
+    
+    @Section['Head'];
+</head>
+<body>
+    @Section['Content'];
+</body>
+</html>

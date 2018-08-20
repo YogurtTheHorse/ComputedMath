@@ -1,0 +1,41 @@
+body {
+    background-color: white;
+    margin: 0; /* browsers set some margin be default */
+
+    font-family: "Roboto Mono", sans-serif;
+}
+
+div .content {
+    align-self: center;
+    margin: 32px;
+}
+
+.box {
+    border: 1px solid #d1d5da;
+    border-radius: 3px;
+    margin: 16px;
+}
+
+.box-content {
+    padding: 8px 8px;
+}
+
+span.disable-links {
+    pointer-events: none;
+}
+
+span.disable-links > a {
+    color: gray;
+}
+
+.centered {
+    display: table;
+    margin: 0 auto;
+}
+
+label {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+

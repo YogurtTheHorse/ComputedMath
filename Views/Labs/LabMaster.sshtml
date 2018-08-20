@@ -1,0 +1,38 @@
+@Master['Master']
+
+@Section['Head']
+<link rel="stylesheet" type="text/css" href="~/Content/css/labs.css"/>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+@Section['LabHead'];
+@EndSection
+
+@Section['Content']
+<div class="content">
+    <div class="lab-input">
+        <div class="box">
+            <div class="box-content">
+                <h1>@Model.Name</h1>
+                @Section['LabInput'];
+            </div>
+        </div>
+    </div>
+    <div class="lab-results">
+        @Each.Results
+        @Partial['Box', Current];
+        @EndEach
+        @IfNot.HasResults
+        <div class="box">
+            <div class="box-content">
+                No calculation was made
+            </div>
+        </div>
+        @EndIf
+    </div>
+</div>
+@EndSection

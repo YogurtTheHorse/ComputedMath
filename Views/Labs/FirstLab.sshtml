@@ -1,0 +1,42 @@
+@Master['LabMaster.sshtml']
+
+@Section['LabHead']
+<script type="text/javascript">
+    function method_changed(elem) {
+        let block = elem.value !== "gauss" && elem.value !== "gauss_main";
+        document.getElementById('precision_lbl').style.display = block ? 'block' : 'none';
+    }
+    
+    window.loaded = function () {
+        method_changed(document.getElementById("method_select"));
+    }
+</script>
+@EndSection
+
+@Section['LabInput']
+<form method="post" id="lab-input">
+    <h3>Select paramters:</h3>
+    <label>
+        Chose method:
+        <select id="method_select" name="method" form="lab-input" onchange="method_changed(this)" value="@Model.Precision">
+            <option value="gauss">Gauss method</option>
+            <option value="gauss_main">Gauss method with choose of main element</option>
+            <option value="simple_iterations">Method of simple iterations</option>
+            <option value="seidel">Seidel method</option>
+        </select>
+    </label>
+
+    <label id="precision_lbl" style="display: none;">
+        Precision:
+        <input type="text" name="precision" value="@Model.Precision"/>
+    </label>
+
+    <label>
+        Input coefficients:
+        <input type="text" name="coefficients" />
+    </label>
+
+    <br>
+    <input type="submit">
+</form>
+@EndSection
