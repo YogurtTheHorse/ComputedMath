@@ -111,8 +111,8 @@ namespace ComputedMath.Solvers.FirstLab {
 
                 return false;
             }
-            
-            return true
+
+            return true;
         }
     }
 }
