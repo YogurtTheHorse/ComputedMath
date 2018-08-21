@@ -1,0 +1,68 @@
+@Master['LabMaster.sshtml']
+
+@Section['LabHead']
+<script type="text/javascript">
+    function method_changed(elem) {
+        document.getElementById('rectangle_method_label').style.display = elem.value === "rectangle" ? 'block' : 'none';
+    }
+
+    window.loaded = function () {
+        method_changed(document.getElementById("rectengle_method_select"));
+    }
+</script>
+@EndSection
+
+@Section['LabInput']
+<form method="post" id="lab-input">
+    <h3>Describe integral:</h3>
+    <label>
+        Choice method:
+        <select name="method" form="lab-input" value="@Model.Method" onchange="method_changed(this);">
+            <option value="rectangle">Rectangle</option>
+            <option value="trapezoidal">Trapezoidal</option>
+            <option value="simpson">Simpson's formula</option>
+        </select>
+    </label>
+
+
+    <label style="display: block;" id="rectangle_method_label">
+        Rectangle method type:
+        <select id="rectengle_method_select"  name="subtype" value="@Model.Subtype" form="lab-input">
+            <option value="left">Left</option>
+            <option value="centet">Center</option>
+            <option value="right">Right</option>
+        </select>
+    </label>
+
+
+    <label>
+        Precision:
+        <input type="text" name="precision" value="@Model.Precision"/>
+    </label>
+
+    <label>
+        Input $f\left(x\right)$:
+        <input type="text" name="function" value="@Model.Function" list="example_functions"/>
+    </label>
+    
+    <datalist id="example_functions">
+        <option>x ** 2</option>
+        <option>x ** 2 * sin(x) - 12 * x</option>
+        <option>x ** 2 * sin(x) - 12 * x</option>
+        <option>sin((Pi * x ** 2) / 2)</option>
+    </datalist>
+
+    <label>
+        Input $a$:
+        <input type="text" name="a" value="@Model.A">
+    </label>
+
+    <label>
+        Input $b$:
+        <input type="text" name="b" value="@Model.B">
+    </label>
+
+    <br>
+    <input type="submit">
+</form>
+@EndSection

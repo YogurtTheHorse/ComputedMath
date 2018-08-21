@@ -12,6 +12,13 @@ namespace ComputedMath {
                 model.Solve();
                 return model;
             });
+            
+            Get("/labs/second", _ => new SecondLabModel());
+            Post("/labs/second", _ => {
+                var model = this.Bind<SecondLabModel>();
+                model.Solve();
+                return model;
+            });
         }
     }
 }

@@ -18,9 +18,7 @@ Labs
                     <a href="/labs/first">Linear system solver</a>
                 </li>
                 <li>
-                    <span class="disable-links">
-                        <a href="/labs/second">Integral claculator</a>
-                    </span>
+                    <a href="/labs/second">Integral claculator</a>
                 </li>
                 <li>
                     <span class="disable-links">
