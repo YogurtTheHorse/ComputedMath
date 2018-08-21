@@ -44,7 +44,7 @@ namespace ComputedMath.Solvers.FirstLab {
             if (!isConverge) {
                 yield return new BoxModel(
                     "Fail",
-                    "Matrix won't converage"
+                    "Matrix won't converge"
                 );
                 yield break;
             }

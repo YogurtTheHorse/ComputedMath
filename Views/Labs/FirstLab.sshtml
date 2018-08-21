@@ -17,7 +17,7 @@
 <form method="post" id="lab-input">
     <h3>Select paramters:</h3>
     <label>
-        Chose method:
+        Choice method:
         <select id="method_select" name="method" form="lab-input" onchange="method_changed(this)" value="@Model.Precision">
             <option value="gauss">Gauss method</option>
             <option value="gauss_main">Gauss method with choose of main element</option>
