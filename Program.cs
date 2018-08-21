@@ -5,7 +5,7 @@ namespace ComputedMath {
     public static class Program {
         private static void Main(string[] args) {
             IWebHost webHost = new WebHostBuilder()
-                .UseUrls(args.Length > 0 ? args[0] : "http://0.0.0.0:5000")
+                .UseUrls(args.Length > 0 ? args[0] : "http://*:5000")
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseKestrel()
                 .UseStartup<Startup>()
