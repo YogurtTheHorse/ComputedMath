@@ -109,11 +109,10 @@ namespace ComputedMath.Solvers.FirstLab {
                     continue;
                 }
 
-                res = false;
-                break;
+                return false;
             }
-
-            return res;
+            
+            return true
         }
     }
 }
