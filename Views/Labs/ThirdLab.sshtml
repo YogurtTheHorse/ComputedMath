@@ -1,0 +1,59 @@
+@Master['LabMaster.sshtml']
+
+@Section['LabHead']
+<script type="text/javascript" src="~/Content/js/jquery.min.js"></script>
+<script type="text/javascript" src="~/Content/js/jquery.flot.min.js"></script>
+<script type="text/javascript" src="~/Content/js/jquery.flot.navigate.min.js"></script>
+@EndSection
+
+@Section['LabInput']
+<form method="post" id="lab-input">
+    <label>
+        Input $f\left(x\right)$:
+        <input type="text" name="function" value="@Model.Function" list="example_functions"/>
+    </label>
+
+    <br>
+
+    <datalist id="example_functions">
+        <option>x ** 2</option>
+        <option>x ** 2 * sin(x) - 12 * x</option>
+        <option>x ** 2 * sin(x) - 12 * x</option>
+        <option>sin((Pi * x ** 2) / 2)</option>
+    </datalist>
+
+    <br>
+
+    <label>
+        Input $a$:
+        <input type="text" name="a" value="@Model.A">
+    </label>
+
+    <label>
+        Input $b$:
+        <input type="text" name="b" value="@Model.B">
+    </label>
+
+    <br>
+
+    <label>
+        Input dots count:
+        <input type="text" name="count" value="@Model.Count">
+    </label>
+
+    <br>
+
+    <label>
+        Input seed:
+        <input type="text" name="seed" value="@Model.Seed">
+    </label>
+
+    <br>
+
+    <label>
+        Precision factor:
+        <input type="text" name="precision" value="@Model.Precision">
+    </label>
+    <input type="submit">
+</form>
+@EndSection
