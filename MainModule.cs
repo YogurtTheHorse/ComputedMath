@@ -1,24 +1,37 @@
-﻿using ComputedMath.Models.Labs;
+﻿using System;
+using System.Reflection;
+using ComputedMath.Models;
+using ComputedMath.Models.Labs;
+
 using Nancy;
-using Nancy.ModelBinding;
+using Nancy.Extensions;
+
+using ModuleExtensions = Nancy.ModelBinding.ModuleExtensions;
 
 namespace ComputedMath {
     public sealed class MainModule : NancyModule {
         public MainModule() {
             Get("/", _ => View["Index"]);
-            Get("/labs/first", _ => new FirstLabModel());
-            Post("/labs/first", _ => {
-                var model = this.Bind<FirstLabModel>();
-                model.Solve();
-                return model;
-            });
-            
-            Get("/labs/second", _ => new SecondLabModel());
-            Post("/labs/second", _ => {
-                var model = this.Bind<SecondLabModel>();
-                model.Solve();
-                return model;
-            });
+            Get("/labs", _ => View["Index"]);
+
+            (string, Type)[] labs = {
+                ("first", typeof(FirstLabModel)),
+                ("second", typeof(SecondLabModel)),
+                ("third", typeof(ThirdLabModel))
+            };
+
+            foreach ((string name, Type type) in labs) {
+                Get("/labs/" + name, _ => type.CreateInstance());
+                Post("/labs/" + name, _ => {
+                    MethodInfo method = typeof(ModuleExtensions)
+                        .GetMethod("Bind", new[] {typeof(NancyModule)})
+                        .MakeGenericMethod(type);
+                    
+                    var model = (LabResultsModel) method.Invoke(null, new object[]{this});
+                    model.Solve();
+                    return model;
+                });
+            }
         }
     }
 }
