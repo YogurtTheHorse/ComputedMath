@@ -23,6 +23,8 @@
             <option value="simpson">Simpson's formula</option>
         </select>
     </label>
+    
+    <br>
 
 
     <label style="display: block;" id="rectangle_method_label">
@@ -33,17 +35,22 @@
             <option value="right">Right</option>
         </select>
     </label>
-
+    
+    <br>
 
     <label>
         Precision:
         <input type="text" name="precision" value="@Model.Precision"/>
     </label>
 
+    <br>
+
     <label>
         Input $f\left(x\right)$:
         <input type="text" name="function" value="@Model.Function" list="example_functions"/>
     </label>
+
+    <br>
     
     <datalist id="example_functions">
         <option>x ** 2</option>

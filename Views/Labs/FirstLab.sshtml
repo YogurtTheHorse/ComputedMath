@@ -26,10 +26,14 @@
         </select>
     </label>
 
+    <br>
+
     <label id="precision_lbl" style="display: none;">
         Precision:
         <input type="text" name="precision" value="@Model.Precision"/>
     </label>
+
+    <br>
 
     <label>
         Input coefficients:
