@@ -9,7 +9,7 @@ namespace ComputedMath.Models.Labs {
         public string Function { get; set; } = "x ** 2";
         public double A { get; set; } = 0;
         public double B { get; set; } = 10;
-        public double Precision { get; set; } = 0.001;
+        public double Precision { get; set; } = 0.01;
         public string Method { get; set; }
         public string Subtype { get; set; }
 
@@ -27,6 +27,12 @@ namespace ComputedMath.Models.Labs {
                 Results.Add(new BoxModel("Error at parsing", "Syntax errors found. Abrting."));
                 return;
             }
+
+            if (Precision * Math.Abs(A - B) > 0.3 && Method != "simpson") {
+                Results.Add(new BoxModel("Precision too small", "Use Simpson's method or make precisionne bigger"));
+                return;
+            }
+
 
             Results.AddRange(IntegralCalculator.Calculate(
                 tree,
