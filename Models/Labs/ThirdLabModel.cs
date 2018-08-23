@@ -60,7 +60,7 @@ namespace ComputedMath.Models.Labs {
                 ("Cubic spline", Interpolation.CubicSpline)
             };
 
-            Results.Add(new ChartBoxModel("Input", new List<(double, double)[]>() {calculatedOriginalFunction}));
+            Results.Add(new ChartBoxModel("Input", new List<(double, double)[]> {calculatedOriginalFunction}));
 
             foreach ((string name, Interpolation.GenerateApproximatedPolynom polynomMaker) in polynoms) {
                 Func<double, double> approximated = polynomMaker(xDataOriginal, yDataForApproximation);
@@ -80,9 +80,10 @@ namespace ComputedMath.Models.Labs {
             _scriptApp.Globals["x"] = x;
 
             var res = (double) _scriptApp.Evaluate(_parseTree);
-            if (double.IsNaN(res)) {
-                double epsilon = (A - B) / (Count * 2);
-                return (CalculateFunction(x - epsilon) + CalculateFunction(x - epsilon)) / 2;
+            
+            if (double.IsNaN(res) || double.IsInfinity(res))  {
+                double epsilon = (A - B) / (Count * 20);
+                return CalculateFunction(x + epsilon);
             }
 
             return res;
