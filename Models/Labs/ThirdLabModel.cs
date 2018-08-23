@@ -59,8 +59,8 @@ namespace ComputedMath.Models.Labs {
                 ("Newton formulas", Interpolation.NewtonFomula),
                 ("Cubic spline", Interpolation.CubicSpline)
             };
-            
-            Results.Add(new ChartBoxModel("Input", new List<(double, double)[]>(){calculatedOriginalFunction}));
+
+            Results.Add(new ChartBoxModel("Input", new List<(double, double)[]>() {calculatedOriginalFunction}));
 
             foreach ((string name, Interpolation.GenerateApproximatedPolynom polynomMaker) in polynoms) {
                 Func<double, double> approximated = polynomMaker(xDataOriginal, yDataForApproximation);
@@ -71,14 +71,21 @@ namespace ComputedMath.Models.Labs {
                 };
 
                 data.AddRange(xDataOriginal.Select((x, i) => new[] {(x, yDataForApproximation[i])}.ToArray()));
-                
+
                 Results.Add(new ChartBoxModel(name, data));
             }
         }
 
         private double CalculateFunction(double x) {
             _scriptApp.Globals["x"] = x;
-            return (double) _scriptApp.Evaluate(_parseTree);
+
+            var res = (double) _scriptApp.Evaluate(_parseTree);
+            if (double.IsNaN(res)) {
+                double epsilon = (A - B) / (Count * 2);
+                return (CalculateFunction(x - epsilon) + CalculateFunction(x - epsilon)) / 2;
+            }
+
+            return res;
         }
     }
 }
