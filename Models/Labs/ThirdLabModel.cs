@@ -49,21 +49,28 @@ namespace ComputedMath.Models.Labs {
 
             double[] yDataApproximated = yDataOriginal
                 .Select(y => y + (_random.NextDouble() - 0.5) * Precision).ToArray();
-            Func<double, double> approximated = Interpolation.LaGrangePolynom(xDataOriginal, yDataApproximated);
+
 
             double[] visiblesXs = Enumerable.Range(0, Count * 10 + 1).Select(i => A + i * delta / 10).ToArray();
+            (double, double)[] calculatedOriginalFunction = visiblesXs.Select(x => (x, CalculateFunction(x))).ToArray();
 
-
-            var data = new List<(double, double)[]> {
-                visiblesXs.Select(x => (x, CalculateFunction(x))).ToArray(),
-                visiblesXs.Select(x => (x, approximated(x))).ToArray()
+            var polynoms = new (string, Interpolation.GenerateApproximatedPolynom)[] {
+                ("LaGrange", Interpolation.LaGrangePolynom),
+                ("Newton", Interpolation.NewtonFomula)
             };
 
-            data.AddRange(xDataOriginal.Select((x, i) => new[] {(x, yDataApproximated[i])}.ToArray()));
+            foreach ((string name, Interpolation.GenerateApproximatedPolynom polynomMaker) in polynoms) {
+                Func<double, double> approximated = polynomMaker(xDataOriginal, yDataApproximated);
 
-            Results.Add(new ChartBoxModel("LaGrange polynom", data));
-            Results.Add(new ChartBoxModel("LaGrange polynom 1", data));
-            Results.Add(new ChartBoxModel("LaGrange polynom 3", data));
+                var data = new List<(double, double)[]> {
+                    calculatedOriginalFunction,
+                    visiblesXs.Select(x => (x, approximated(x))).ToArray()
+                };
+
+                data.AddRange(xDataOriginal.Select((x, i) => new[] {(x, yDataApproximated[i])}.ToArray()));
+                
+                Results.Add(new ChartBoxModel(name, data));
+            }
         }
 
         private double CalculateFunction(double x) {
