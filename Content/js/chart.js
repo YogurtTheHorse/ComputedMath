@@ -1,28 +1,33 @@
 $(window).load(function () {
-    $.plot(
-        $("!placeholderName!"),
-        "!data!",
-        {
-            grid: {
-                hoverable: true,
-                clickable: true
-            },
-            series: {
-                lines: {
-                    show: true
-                }, points: {
-                    show: true
+    
+    const create_plot = function() {
+        $.plot(
+            $("!placeholderName!"),
+            "!data!",
+            {
+                grid: {
+                    hoverable: true,
+                    clickable: true
+                },
+                series: {
+                    lines: {
+                        show: true
+                    }, points: {
+                        show: true
+                    }
+                },
+                zoom: {
+                    interactive: true
+                },
+                pan: {
+                    interactive: true
                 }
-            },
-            zoom: {
-                interactive: true
-            },
-            pan: {
-                interactive: true
             }
-        }
-    );
+        );
+    };
 
+    create_plot();
+    
     $("<div id='tooltip'></div>").css({
         position: "absolute",
         border: "1px solid #fdd",
@@ -48,4 +53,6 @@ $(window).load(function () {
             tooltip.hide();
         }
     });
+    
+    $(window).resize(function() {create_plot();});
 });
