@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ComputedMath.MathExtensions;
 
 namespace ComputedMath.Solvers.ThirdLab {
     public static class Interpolation {
+        private static Dictionary<(int, int, int), double> _newtonDiffsmem =
+            new Dictionary<(int, int, int), double>();
+
         public delegate Func<double, double> GenerateApproximatedPolynom(double[] xData, double[] yData);
-        
+
         public static Func<double, double> LaGrangePolynom(double[] xData, double[] yData) {
             if (xData.Length != yData.Length) {
                 throw new ArgumentException("xData length must be equable to yData's");
@@ -15,10 +19,10 @@ namespace ComputedMath.Solvers.ThirdLab {
                 .Select(i => yData[i] * P(x, xData, i)).Sum();
         }
 
-        private static double P(double x, double[] xData, int i) {
+        private static double P(double x, IReadOnlyList<double> xData, int i) {
             double denominator = 1, numerator = 1;
 
-            for (var j = 0; j < xData.Length; j++) {
+            for (var j = 0; j < xData.Count; j++) {
                 if (i == j) {
                     continue;
                 }
@@ -31,7 +35,7 @@ namespace ComputedMath.Solvers.ThirdLab {
         }
 
         public static Func<double, double> NewtonFomula(double[] xData, double[] yData) {
-            return (x) => {
+            return x => {
                 if (x < xData[0]) {
                     return 0;
                 }
@@ -42,7 +46,7 @@ namespace ComputedMath.Solvers.ThirdLab {
                 Array.Copy(yData, zeroIndex, skippedYData, 0, skippedYData.Length);
 
                 int n = Math.Min(yData.Length - zeroIndex - 1, 5);
-    
+
                 double result = yData[zeroIndex];
                 for (var i = 0; i < n; i++) {
                     double qs = 1;
@@ -67,7 +71,18 @@ namespace ComputedMath.Solvers.ThirdLab {
                 return yData[k];
             }
 
-            return FiniteDiffirences(yData, k + 1, n - 1) - FiniteDiffirences(yData, k, n - 1);
+            if (!_newtonDiffsmem.TryGetValue((yData.GetHashCode(), k, n), out double res)) {
+                res = FiniteDiffirences(yData, k + 1, n - 1) - FiniteDiffirences(yData, k, n - 1);
+                _newtonDiffsmem[(yData.GetHashCode(), k, n)] = res;
+            }
+
+            return res;
+        }
+
+        public static Func<double, double> CubicSpline(double[] xData, double[] yData) {
+            var cubicSpline = new CubicSpline(xData, yData);
+
+            return x => cubicSpline.Eval(new double[] {x})[0];
         }
     }
 }
