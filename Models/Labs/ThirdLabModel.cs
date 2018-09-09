@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using ComputedMath.Solvers.SecondLab;
-using ComputedMath.Solvers.ThirdLab;
 using Irony.Interpreter;
 using Irony.Parsing;
+using static ComputedMath.Solvers.ThirdLab.Interpolation;
 
 namespace ComputedMath.Models.Labs {
     public class ThirdLabModel : LabResultsModel {
@@ -54,15 +53,15 @@ namespace ComputedMath.Models.Labs {
             double[] visiblesXs = Enumerable.Range(0, Count * 10 + 1).Select(i => A + i * delta / 10).ToArray();
             (double, double)[] calculatedOriginalFunction = visiblesXs.Select(x => (x, CalculateFunction(x))).ToArray();
 
-            var polynoms = new (string, Interpolation.GenerateApproximatedPolynom)[] {
-                ("LaGrange polynom", Interpolation.LaGrangePolynom),
-                ("Newton formulas", Interpolation.NewtonFomula),
-                ("Cubic spline", Interpolation.CubicSpline)
+            var polynoms = new (string, GenerateApproximatedPolynom)[] {
+                ("LaGrange polynom", LaGrangePolynom),
+                ("Newton formulas", NewtonFomula),
+                ("Cubic spline", CubicSpline)
             };
 
             Results.Add(new ChartBoxModel("Input", new List<(double, double)[]> {calculatedOriginalFunction}));
 
-            foreach ((string name, Interpolation.GenerateApproximatedPolynom polynomMaker) in polynoms) {
+            foreach ((string name, GenerateApproximatedPolynom polynomMaker) in polynoms) {
                 Func<double, double> approximated = polynomMaker(xDataOriginal, yDataForApproximation);
 
                 var data = new List<(double, double)[]> {
@@ -80,8 +79,8 @@ namespace ComputedMath.Models.Labs {
             _scriptApp.Globals["x"] = x;
 
             var res = (double) _scriptApp.Evaluate(_parseTree);
-            
-            if (double.IsNaN(res) || double.IsInfinity(res))  {
+
+            if (double.IsNaN(res) || double.IsInfinity(res)) {
                 double epsilon = (A - B) / (Count * 20);
                 return CalculateFunction(x + epsilon);
             }

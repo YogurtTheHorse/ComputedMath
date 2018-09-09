@@ -46,6 +46,9 @@ namespace ComputedMath.Solvers.SecondLab {
                             return $"{left} {opSymbol} {right}";
                     }
 
+                case UnaryOperationNode unaryNode:
+                    return $"{unaryNode.OpSymbol}{{{unaryNode.Argument.ToLaTeX()}}}";
+
                 case FunctionCallNode callNode:
                     string args = string.Join(
                         ", ",

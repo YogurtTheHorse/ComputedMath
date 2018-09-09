@@ -56,6 +56,7 @@ namespace ComputedMath.Solvers.SecondLab {
                 case "rectangle":
                     return delta * (Enumerable.Range(subtype == "left" ? 1 : 0, count - (subtype == "center" ? 2 : 1))
                                         .Select(i => function(a + delta * i))
+                                        .AsParallel()
                                         .Sum() +
                                     (subtype == "center"
                                         ? 0.5 * (function(a) + function(b))
@@ -64,13 +65,13 @@ namespace ComputedMath.Solvers.SecondLab {
 
                 case "trapezoidal":
                     return (function(a) + function(b)) * delta / 2 +
-                           delta * Enumerable.Range(0, count).Select(i => function(a + i * delta)).Sum();
+                           delta * Enumerable.Range(0, count).AsParallel().Select(i => function(a + i * delta)).Sum();
 
                 case "simpson":
                     return delta * Enumerable.Range(0, count / 2).Select(i => {
                         double x = (1 + 2 * i) * delta + a;
                         return function(x - delta) + 4 * function(x) + function(x + delta);
-                    }).Sum() / 3;
+                    }).AsParallel().Sum() / 3;
 
                 default:
                     return 0;

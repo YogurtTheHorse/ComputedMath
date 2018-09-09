@@ -30,9 +30,9 @@ namespace ComputedMath.Solvers.FirstLab {
                                         .Aggregate(new Fraction(1), (f, mul) => mul * f);
 
             results.Add(new LaTeXBox(
-                "Determinant", 
+                "Determinant",
                 $"det {startMatrix.ToLaTex()} = {determinator.ToLaTeX()} \\approx {determinator.ToDouble()}"));
-    
+
             if (!BackInsertion(ref matrix, results)) return results;
 
             results.Add(new ArrayBoxModel<Fraction>("Solution matrix", matrix));
@@ -121,10 +121,10 @@ namespace ComputedMath.Solvers.FirstLab {
             if (!matrix.MainDiagonalStabilize(out int stabilizeSwapsCount)) {
                 results.Add(new BoxModel("Fail", "Matrix has no unique solution"));
                 return false;
-            } 
-            
-            if (stabilizeSwapsCount > 0){
-                results.Add(new ArrayBoxModel<Fraction>("Stable matrix", matrix));                
+            }
+
+            if (stabilizeSwapsCount > 0) {
+                results.Add(new ArrayBoxModel<Fraction>("Stable matrix", matrix));
             }
 
 

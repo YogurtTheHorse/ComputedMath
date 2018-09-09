@@ -10,6 +10,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Owin" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.1.2" />
     <PackageReference Include="Nancy" Version="2.0.0-clinteastwood" />
+    <PackageReference Include="System.Collections.Concurrent" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content/**">

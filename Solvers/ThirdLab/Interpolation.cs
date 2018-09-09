@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using ComputedMath.MathExtensions;
 
 namespace ComputedMath.Solvers.ThirdLab {
     public static class Interpolation {
-        private static Dictionary<(int, int, int), double> _newtonDiffsmem =
-            new Dictionary<(int, int, int), double>();
+        private static readonly ConcurrentDictionary<(int, int, int), double> _newtonDiffsmem =
+            new ConcurrentDictionary<(int, int, int), double>();
 
         public delegate Func<double, double> GenerateApproximatedPolynom(double[] xData, double[] yData);
 
