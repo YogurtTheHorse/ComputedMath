@@ -2,10 +2,8 @@
 using System.Reflection;
 using ComputedMath.Models;
 using ComputedMath.Models.Labs;
-
 using Nancy;
 using Nancy.Extensions;
-
 using ModuleExtensions = Nancy.ModelBinding.ModuleExtensions;
 
 namespace ComputedMath {
@@ -17,7 +15,8 @@ namespace ComputedMath {
             (string, Type)[] labs = {
                 ("first", typeof(FirstLabModel)),
                 ("second", typeof(SecondLabModel)),
-                ("third", typeof(ThirdLabModel))
+                ("third", typeof(ThirdLabModel)),
+                ("fourth", typeof(FourthLab))
             };
 
             foreach ((string name, Type type) in labs) {
@@ -26,8 +25,8 @@ namespace ComputedMath {
                     MethodInfo method = typeof(ModuleExtensions)
                         .GetMethod("Bind", new[] {typeof(NancyModule)})
                         .MakeGenericMethod(type);
-                    
-                    var model = (LabResultsModel) method.Invoke(null, new object[]{this});
+
+                    var model = (LabResultsModel) method.Invoke(null, new object[] {this});
                     model.Solve();
                     return model;
                 });
