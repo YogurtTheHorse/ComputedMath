@@ -13,22 +13,22 @@ namespace ComputedMath {
             Get("/labs", _ => View["Index"]);
 
             (string, Type)[] labs = {
-                ("first", typeof(FirstLabModel)),
-                ("second", typeof(SecondLabModel)),
-                ("third", typeof(ThirdLabModel)),
-                ("fourth", typeof(FourthLab))
+                ("First", typeof(FirstLabModel)),
+                ("Second", typeof(SecondLabModel)),
+                ("Third", typeof(ThirdLabModel)),
+                ("Fourth", typeof(FourthLab))
             };
 
             foreach ((string name, Type type) in labs) {
-                Get("/labs/" + name, _ => type.CreateInstance());
-                Post("/labs/" + name, _ => {
+                Get($"/labs/{name.ToLower()}", _ => type.CreateInstance());
+                Post($"/labs/{name.ToLower()}", _ => {
                     MethodInfo method = typeof(ModuleExtensions)
                         .GetMethod("Bind", new[] {typeof(NancyModule)})
                         .MakeGenericMethod(type);
 
                     var model = (LabResultsModel) method.Invoke(null, new object[] {this});
                     model.Solve();
-                    return model;
+                    return View[$"{name}Lab.sshtml", model];
                 });
             }
         }

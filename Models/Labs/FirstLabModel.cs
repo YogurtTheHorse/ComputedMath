@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Runtime.CompilerServices;
 using ComputedMath.MathExtensions;
 using ComputedMath.Models.Enums;
 using ComputedMath.Solvers.FirstLab;
@@ -48,6 +48,7 @@ namespace ComputedMath.Models.Labs {
             get => string.Join(",", _matrix ?? new Fraction[,] { });
             set {
                 string[] strCoef = value.Split(',');
+                
                 var rowsCount = 0;
                 for (var i = 1; i <= 21; i++) {
                     if (i * (i + 1) != strCoef.Length) continue;
@@ -56,12 +57,17 @@ namespace ComputedMath.Models.Labs {
                     break;
                 }
 
-                if (rowsCount == 0) throw new ArgumentException();
+                try {
+                    if (rowsCount == 0) throw new ArgumentException();
 
-                _matrix = new Fraction[rowsCount, rowsCount + 1];
-                for (var i = 0; i < rowsCount; i++)
-                for (var j = 0; j < rowsCount + 1; j++)
-                    _matrix[i, j] = Fraction.ToFraction(strCoef[i * (rowsCount + 1) + j]);
+                    _matrix = new Fraction[rowsCount, rowsCount + 1];
+                    for (var i = 0; i < rowsCount; i++)
+                    for (var j = 0; j < rowsCount + 1; j++)
+                        _matrix[i, j] = Fraction.ToFraction(strCoef[i * (rowsCount + 1) + j].Trim());
+                }
+                catch {
+                    _matrix = new Fraction[0, 0];
+                }
             }
         }
 

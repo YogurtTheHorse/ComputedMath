@@ -6,8 +6,12 @@
 MathJax.Hub.Config({
   tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
 });
+
 </script>
-<script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<script type="text/javascript"
+        src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script type="text/javascript" src="~/Content/js/uploading.js">
 </script>
 @Section['LabHead'];
 @EndSection
@@ -19,6 +23,13 @@ MathJax.Hub.Config({
         <div class="box">
             <div class="box-content">
                 @Section['LabInput'];
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-content">
+                <h3>Or select file:</h3>
+                <input type="file" name="file" id="file" accept="application/json">
+                <input type="button" value="Submit" onclick="upload()"/>
             </div>
         </div>
     </div>

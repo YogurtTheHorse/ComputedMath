@@ -14,11 +14,11 @@
 @EndSection
 
 @Section['LabInput']
+<h3>Select paramters:</h3>
 <form method="post" id="lab-input">
-    <h3>Select paramters:</h3>
     <label>
         Choice method:
-        <select id="method_select" name="method" form="lab-input" onchange="method_changed(this)" value="@Model.Precision">
+        <select id="method_select" name="method" form="lab-input" onchange="method_changed(this)" value="@Model.Method">
             <option value="gauss">Gauss method</option>
             <option value="gauss_main">Gauss method with choose of main element</option>
             <option value="simple_iterations">Method of simple iterations</option>
