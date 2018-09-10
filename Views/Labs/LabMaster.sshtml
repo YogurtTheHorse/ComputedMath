@@ -34,15 +34,24 @@ MathJax.Hub.Config({
         </div>
     </div>
     <div class="lab-results">
-        @Each.Results
-        @Partial['Box', Current];
-        @EndEach
-        @IfNot.HasResults
+        @If.WasErrors
         <div class="box">
             <div class="box-content">
-                No calculation was made
+                Error reading arguments
             </div>
         </div>
+        @EndIf
+        @IfNot.WasErrors
+            @Each.Results
+                @Partial['Box', Current];
+            @EndEach
+            @IfNot.HasResults
+                <div class="box">
+                    <div class="box-content">
+                        No calculation was made
+                    </div>
+                </div>
+            @EndIf
         @EndIf
     </div>
 </div>

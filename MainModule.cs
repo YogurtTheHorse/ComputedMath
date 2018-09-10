@@ -26,8 +26,15 @@ namespace ComputedMath {
                         .GetMethod("Bind", new[] {typeof(NancyModule)})
                         .MakeGenericMethod(type);
 
-                    var model = (LabResultsModel) method.Invoke(null, new object[] {this});
-                    model.Solve();
+                    LabResultsModel model = null;
+                    try {
+                        model = (LabResultsModel) method.Invoke(null, new object[] {this});
+                        model.Solve();
+                    }
+                    catch {
+                        model = (LabResultsModel)type.CreateInstance();
+                        model.WasErrors = true;
+                    }
                     return View[$"{name}Lab.sshtml", model];
                 });
             }
