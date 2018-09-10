@@ -11,6 +11,7 @@
         method_changed(document.getElementById("method_select"));
     }
 </script>
+<script type="text/javascript" src="~/Content/js/randomizes/first.js"></script>
 @EndSection
 
 @Section['LabInput']

@@ -13,6 +13,11 @@ MathJax.Hub.Config({
 </script>
 <script type="text/javascript" src="~/Content/js/uploading.js">
 </script>
+<script type="text/javascript">
+    function randomize() {
+        alert('not supported');
+    }
+</script>
 @Section['LabHead'];
 @EndSection
 
@@ -30,6 +35,9 @@ MathJax.Hub.Config({
                 <h3>Or select file:</h3>
                 <input type="file" name="file" id="file" accept="application/json">
                 <input type="button" value="Submit" onclick="upload()"/>
+                <br>
+                <h3>Or randomize:</h3>
+                <input type="button" value="Randomize" onclick="randomize()">
             </div>
         </div>
     </div>

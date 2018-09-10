@@ -36,7 +36,7 @@ namespace ComputedMath.Solvers.FirstLab {
 
             yield return new LaTeXBox(
                 "Coefficients",
-                $"\\alpha = {alphaMatrix.ToLaTex()} " +
+                $"\\alpha = {alphaMatrix.ToLaTex()} \\\\" +
                 $"\\beta = {betaVector.ToLaTeXVector()}"
             );
 
