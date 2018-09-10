@@ -34,7 +34,7 @@ namespace ComputedMath {
                     catch {
                         model = (LabResultsModel)type.CreateInstance();
                         model.WasErrors = true;
-                    }
+                        }
                     return View[$"{name}Lab.sshtml", model];
                 });
             }
