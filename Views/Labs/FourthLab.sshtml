@@ -27,30 +27,37 @@
 
     <label>
         Input $x_0$:
-        <input type="text" name="a" value="@Model.X0">
+        <input type="text" name="X0" value="@Model.X0">
     </label>
     
     <br>
 
     <label>
         Input $y(x_0)$:
-        <input type="text" name="b" value="@Model.Y0">
+        <input type="text" name="Y0" value="@Model.Y0">
     </label>
     
     <br>
     
     <label>
-        Input sgegment length:
-        <input type="text" name="segmentlength" value="@Model.SegmentLength">
+        Input H:
+        <input type="text" name="H" value="@Model.H">
     </label>
 
     <br>
 
     <label>
+        Count:
+        <input type="text" name="Count" value="@Model.Count">
+    </label>
+
+    <br>
+
+    <!--label>
         Precision:
-        <input type="text" name="precision" value="@Model.Precision">
-    </label>
-    
+        <input type="text" name="Precision" value="@Model.Precision">
+    </label-->
+        
     <br>
     
     <input type="submit">

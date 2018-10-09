@@ -16,8 +16,9 @@ namespace ComputedMath.Models.Labs {
         public string Function { get; set; } = "x ** 2";
         public double X0 { get; set; } = 1;
         public double Y0 { get; set; } = 1;
-        public double SegmentLength { get; set; } = 10;
-        public double Precision { get; set; } = 0.1;
+        public double H { get; set; } = 0.1;
+        public int Count { get; set; } = 10;
+        public double Precision { get; set; } = 0.01;
 
         public FourthLab() {
             var expressionGrammar = new LabGrammar();
@@ -39,12 +40,17 @@ namespace ComputedMath.Models.Labs {
 
             Results.Add(new LaTeXBox("Input", "\\frac{dy}{dx} = " + _parseTree.ToLaTeX()));
 
-            (double[] calculatedXs, double[] calculatedYs) = DiferensialSolver.Eiler(
-                (X0, Y0), SegmentLength, Precision, CalculateFunction, 1
+            double[] calculatedYs = DiferensialSolver.Milne(
+                CalculateFunction,
+                Y0,
+                X0,
+                Count,
+                H,
+                Precision
             );
 
             Results.Add(new ChartBoxModel("Result", new[] {
-                calculatedXs.Select((x, i) => (x, calculatedYs[i])).ToArray()
+                calculatedYs.Select((y, i) => (X0 + H * i, calculatedYs[i])).ToArray()
             }));
         }
 
@@ -55,7 +61,7 @@ namespace ComputedMath.Models.Labs {
             var res = (double) _scriptApp.Evaluate(_parseTree);
 
             if (double.IsNaN(res) || double.IsInfinity(res)) {
-                return CalculateFunction(x + Precision, y + Precision);
+                return CalculateFunction(x + H / 2, y + H / 2);
             }
 
             return res;
