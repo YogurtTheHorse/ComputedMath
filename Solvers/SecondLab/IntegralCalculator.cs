@@ -35,16 +35,19 @@ namespace ComputedMath.Solvers.SecondLab {
 
             double oldIntegral = integralSing * Approximate(method, subtype, Function, a, b, count / 2);
             double integral = integralSing * Approximate(method, subtype, Function, a, b, count);
+            double q = (method == "simpson" ? 15 : 3);
 
-            while (Math.Abs(integral - oldIntegral) >= precision * (method == "simpson" ? 15 : 3)) {
+            while (Math.Abs(integral - oldIntegral) >= precision * q) {
                 oldIntegral = integral;
                 count *= 2;
                 integral = integralSing * Approximate(method, subtype, Function, a, b, count);
             }
+            
 
             yield return new LaTeXBox($"Result",
                 $"N = {count}\\\\" +
-                $"\\int_{{{a}}}^{{{b}}} f\\left(x\\right) dx \\approx {integral}"
+                $"\\int_{{{a}}}^{{{b}}} f\\left(x\\right) dx \\approx {integral} \\\\" +
+                $"\\Delta \\approx {Math.Abs(integral - oldIntegral) / q}"
             );
         }
 

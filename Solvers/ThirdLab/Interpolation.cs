@@ -6,12 +6,12 @@ using ComputedMath.MathExtensions;
 
 namespace ComputedMath.Solvers.ThirdLab {
     public static class Interpolation {
-        private static readonly ConcurrentDictionary<(int, int, int), double> _newtonDiffsmem =
+        private static readonly ConcurrentDictionary<(int, int, int), double> NewtonDiffs =
             new ConcurrentDictionary<(int, int, int), double>();
 
-        public delegate Func<double, double> GenerateApproximatedPolynom(double[] xData, double[] yData);
+        public delegate Func<double, double> GenerateApproximatedPolynomial(double[] xData, double[] yData);
 
-        public static Func<double, double> LaGrangePolynom(double[] xData, double[] yData) {
+        public static Func<double, double> LaGrangePolynomial(double[] xData, double[] yData) {
             if (xData.Length != yData.Length) {
                 throw new ArgumentException("xData length must be equable to yData's");
             }
@@ -35,7 +35,7 @@ namespace ComputedMath.Solvers.ThirdLab {
             return numerator / denominator;
         }
 
-        public static Func<double, double> NewtonFomula(double[] xData, double[] yData) {
+        public static Func<double, double> NewtonFormula(double[] xData, double[] yData) {
             return x => {
                 if (x < xData[0]) {
                     return 0;
@@ -60,21 +60,21 @@ namespace ComputedMath.Solvers.ThirdLab {
                         fact *= j;
                     }
 
-                    result += qs * FiniteDiffirences(yData, zeroIndex, i + 1) / fact;
+                    result += qs * FiniteDifferences(yData, zeroIndex, i + 1) / fact;
                 }
 
                 return result;
             };
         }
 
-        private static double FiniteDiffirences(IReadOnlyList<double> yData, int k, int n) {
+        private static double FiniteDifferences(IReadOnlyList<double> yData, int k, int n) {
             if (n <= 0) {
                 return yData[k];
             }
 
-            if (!_newtonDiffsmem.TryGetValue((yData.GetHashCode(), k, n), out double res)) {
-                res = FiniteDiffirences(yData, k + 1, n - 1) - FiniteDiffirences(yData, k, n - 1);
-                _newtonDiffsmem[(yData.GetHashCode(), k, n)] = res;
+            if (!NewtonDiffs.TryGetValue((yData.GetHashCode(), k, n), out double res)) {
+                res = FiniteDifferences(yData, k + 1, n - 1) - FiniteDifferences(yData, k, n - 1);
+                NewtonDiffs[(yData.GetHashCode(), k, n)] = res;
             }
 
             return res;
@@ -83,7 +83,7 @@ namespace ComputedMath.Solvers.ThirdLab {
         public static Func<double, double> CubicSpline(double[] xData, double[] yData) {
             var cubicSpline = new CubicSpline(xData, yData);
 
-            return x => cubicSpline.Eval(new double[] {x})[0];
+            return x => cubicSpline.Eval(new[] {x})[0];
         }
     }
 }

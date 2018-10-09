@@ -53,15 +53,15 @@ namespace ComputedMath.Models.Labs {
             double[] visiblesXs = Enumerable.Range(0, Count * 10 + 1).Select(i => A + i * delta / 10).ToArray();
             (double, double)[] calculatedOriginalFunction = visiblesXs.Select(x => (x, CalculateFunction(x))).ToArray();
 
-            var polynoms = new (string, GenerateApproximatedPolynom)[] {
-                ("LaGrange polynom", LaGrangePolynom),
-                ("Newton formulas", NewtonFomula),
+            var polynoms = new (string, GenerateApproximatedPolynomial)[] {
+                ("LaGrange polynom", LaGrangePolynomial),
+                ("Newton formulas", NewtonFormula),
                 ("Cubic spline", CubicSpline)
             };
 
             Results.Add(new ChartBoxModel("Input", new List<(double, double)[]> {calculatedOriginalFunction}));
 
-            foreach ((string name, GenerateApproximatedPolynom polynomMaker) in polynoms) {
+            foreach ((string name, GenerateApproximatedPolynomial polynomMaker) in polynoms) {
                 Func<double, double> approximated = polynomMaker(xDataOriginal, yDataForApproximation);
 
                 var data = new List<(double, double)[]> {
